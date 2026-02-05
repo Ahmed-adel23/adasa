@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import data from "../../data/posts.json";
 
 const FeaturedPosts = () => {
@@ -11,7 +11,12 @@ const FeaturedPosts = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-orange-500 bg-orange-500/10 border border-orange-500/30 rounded-full">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
@@ -19,47 +24,48 @@ const FeaturedPosts = () => {
               </span>
               مميز
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-              مقالات مختارة
-            </h2>
-            <p className="text-neutral-400 max-w-lg">
-              محتوى منتقى لبدء رحلة تعلمك
-            </p>
-          </div>
-          <Link
-            to="/blog"
-            className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-medium transition-all duration-300 hover:-translate-y-0.5"
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">مقالات مختارة</h2>
+            <p className="text-neutral-400 max-w-lg">محتوى منتقى لبدء رحلة تعلمك</p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            عرض الكل
-            <svg
-              className="w-4 h-4 group-hover:-translate-x-1 transition-transform rotate-180"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <Link
+              to="/blog"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-medium transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-orange-500/10"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </Link>
+              عرض الكل
+              <svg
+                className="w-4 h-4 group-hover:-translate-x-1 transition-transform rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </motion.div>
         </div>
 
         <div className="space-y-8">
           {featuredPosts.map((post, index) => (
-            <article
+            <motion.article
               key={post.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
               className="group relative bg-[#161616] rounded-3xl overflow-hidden border border-[#262626] hover:border-orange-500/30 transition-all duration-500"
-              style={{ animationDelay: `${index * 150}ms` }}
             >
               <Link className="block" to={`/blog/${post.slug}`}>
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="relative h-72 md:h-[400px] overflow-hidden">
                     <img
                       alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       src={post.image}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -76,18 +82,13 @@ const FeaturedPosts = () => {
                         {post.category}
                       </span>
                       <span className="flex items-center gap-1 text-sm text-neutral-500">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          ></path>
+                          />
                         </svg>
                         {post.readTime}
                       </span>
@@ -97,9 +98,7 @@ const FeaturedPosts = () => {
                       {post.title}
                     </h2>
 
-                    <p className="text-neutral-400 mb-6 line-clamp-3 leading-relaxed">
-                      {post.excerpt}
-                    </p>
+                    <p className="text-neutral-400 mb-6 line-clamp-3 leading-relaxed">{post.excerpt}</p>
 
                     <div className="flex items-center justify-between mt-auto">
                       <div className="flex items-center gap-3">
@@ -112,9 +111,7 @@ const FeaturedPosts = () => {
                           <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-orange-500 rounded-full border-2 border-[#161616]"></div>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-white">
-                            {post.author.name}
-                          </p>
+                          <p className="text-sm font-semibold text-white">{post.author.name}</p>
                           <p className="text-xs text-neutral-500">
                             {new Date(post.date).toLocaleDateString("ar-EG", {
                               year: "numeric",
@@ -126,25 +123,15 @@ const FeaturedPosts = () => {
                       </div>
                       <span className="inline-flex items-center gap-2 text-orange-500 font-semibold text-sm group-hover:gap-3 transition-all duration-300">
                         اقرأ المقال
-                        <svg
-                          className="w-5 h-5 rotate-180"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          ></path>
+                        <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </span>
                     </div>
                   </div>
                 </div>
               </Link>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

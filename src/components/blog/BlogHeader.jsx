@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const BlogHeader = () => (
   <header className="relative py-24 overflow-hidden">
     <div className="absolute inset-0 bg-[#0a0a0a]"></div>
@@ -8,22 +10,36 @@ const BlogHeader = () => (
     </div>
 
     <div className="relative max-w-7xl mx-auto px-4 text-center">
-      <span className="bg-[#161616] border border-[#262626] text-orange-500 px-4 py-2 rounded-full inline-flex items-center gap-3 mb-6 text-sm group animate-fade-in">
+      <motion.span
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-[#161616] border border-[#262626] text-orange-500 px-4 py-2 rounded-full inline-flex items-center gap-3 mb-6 text-sm"
+      >
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
         </span>
-
         <span className="flex items-center gap-2">
           مدونتنا <i className="fa-regular fa-newspaper text-xs opacity-80"></i>
         </span>
-      </span>
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+      </motion.span>
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
+        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
+      >
         استكشف <span className="text-orange-500">مقالاتنا</span>
-      </h1>
-      <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="text-xl text-neutral-400 max-w-2xl mx-auto"
+      >
         اكتشف الدروس والرؤى وأفضل الممارسات للتطوير الحديث
-      </p>
+      </motion.p>
     </div>
   </header>
 );

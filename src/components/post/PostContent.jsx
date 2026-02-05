@@ -1,23 +1,37 @@
-import React from "react";
+import { motion } from "framer-motion";
 
 const PostContent = ({ post, sections, intro }) => (
   <>
-    <div className="p-6 bg-gradient-to-r from-orange-500/10 to-yellow-500/5 rounded-2xl border border-orange-500/20 mb-10">
-      <p className="text-lg text-neutral-200 leading-relaxed italic">
-            {post.excerpt}
-      </p>
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="p-6 bg-gradient-to-r from-orange-500/10 to-yellow-500/5 rounded-2xl border border-orange-500/20 mb-10"
+    >
+      <p className="text-lg text-neutral-200 leading-relaxed italic">{post.excerpt}</p>
+    </motion.div>
 
-{intro && (
-      <div className="mb-10">
-        <p className="text-neutral-300 leading-relaxed text-xl">
-          {intro}
-        </p>
-      </div>
+    {intro && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="mb-10"
+      >
+        <p className="text-neutral-300 leading-relaxed text-xl">{intro}</p>
+      </motion.div>
     )}
-<div className="prose-custom">
+
+    <div className="prose-custom">
       {sections.map((section, index) => (
-        <div key={index} className="mb-12">
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
+        >
           <h2
             id={`section-${index}`}
             className="text-2xl md:text-3xl font-bold text-white mt-14 mb-6 flex items-center gap-4 scroll-mt-24"
@@ -27,14 +41,18 @@ const PostContent = ({ post, sections, intro }) => (
             </span>
             {section.title}
           </h2>
-          <div className="text-neutral-300 leading-relaxed text-lg whitespace-pre-line">
-            {section.content}
-          </div>
-        </div>
+          <div className="text-neutral-300 leading-relaxed text-lg whitespace-pre-line">{section.content}</div>
+        </motion.div>
       ))}
     </div>
 
-    <div className="mt-14 p-6 bg-[#111111] rounded-2xl border border-[#262626]">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="mt-14 p-6 bg-[#111111] rounded-2xl border border-[#262626]"
+    >
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30">
           <i className="fa-solid fa-tags text-orange-500"></i>
@@ -51,9 +69,15 @@ const PostContent = ({ post, sections, intro }) => (
           </span>
         ))}
       </div>
-    </div>
+    </motion.div>
 
-    <div className="mt-6 p-6 bg-[#111111] rounded-2xl border border-[#262626]">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="mt-6 p-6 bg-[#111111] rounded-2xl border border-[#262626]"
+    >
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30">
@@ -63,18 +87,33 @@ const PostContent = ({ post, sections, intro }) => (
         </div>
         <div className="flex gap-2">
           {["x-twitter", "linkedin-in", "whatsapp"].map((social) => (
-            <button key={social} className="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-orange-500 hover:text-white transition-all duration-300">
+            <motion.button
+              key={social}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-orange-500 hover:text-white hover:border-transparent transition-all duration-300"
+            >
               <i className={`fa-brands fa-${social}`}></i>
-            </button>
+            </motion.button>
           ))}
-          <button className="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-orange-500 hover:text-white transition-all">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="w-11 h-11 bg-[#1a1a1a] border border-[#262626] rounded-xl flex items-center justify-center text-neutral-400 hover:bg-orange-500 hover:text-white hover:border-transparent transition-all duration-300"
+          >
             <i className="fa-solid fa-link"></i>
-          </button>
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
 
-    <div className="mt-6 p-8 bg-gradient-to-br from-[#161616] to-[#111111] rounded-2xl border border-[#262626]">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="mt-6 p-8 bg-gradient-to-br from-[#161616] to-[#111111] rounded-2xl border border-[#262626]"
+    >
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
         <img
           alt={post.author.name}
@@ -82,9 +121,7 @@ const PostContent = ({ post, sections, intro }) => (
           src={post.author.avatar}
         />
         <div className="text-center sm:text-right flex-1">
-          <span className="text-xs text-orange-500 font-semibold uppercase tracking-wider">
-            كاتب المقال
-          </span>
+          <span className="text-xs text-orange-500 font-semibold uppercase tracking-wider">كاتب المقال</span>
           <h3 className="text-xl font-bold text-white mt-1">{post.author.name}</h3>
           <p className="text-neutral-500 text-sm mb-3">{post.author.role}</p>
           <p className="text-neutral-400 text-sm leading-relaxed">
@@ -92,7 +129,7 @@ const PostContent = ({ post, sections, intro }) => (
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   </>
 );
 
